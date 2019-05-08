@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 
 advImagePath= '../adversarialinputs.pkl.gz'
 savedModel = 'svm_model.sav'
+imgSize =28
 
 def LoadAdvInputs(advpath):
     with gzip.open(advpath,'rb') as infile:
@@ -29,6 +30,6 @@ SvmModel= LoadTrainedModel(savedModel)
 adv_pred=SvmModel.predict(adversarialImages)
 
 
-plt.imshow(adversarialImages[0].reshape(28,28), cmap="gray")
+plt.imshow(adversarialImages[0].reshape(imgSize,imgSize), cmap="gray")
 
     
