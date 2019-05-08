@@ -110,18 +110,18 @@ class GradientBaseMethodSVM:
 ##########Data Extraction and Training Support Vector Machine ######################   
 obj= GradientBaseMethodSVM(data_Path, savdir)    
 train_x, train_y, test_x, test_y, valid_x, valid_y=obj.DataExtraction()   
-pred_y, svmModel= obj.SVMClassifier(train_x[:500], train_y[:500], test_x[:100])
+pred_y, svmModel= obj.SVMClassifier(train_x, train_y, test_x)
 print ("Classification is Done")
-accuracy= accuracy_score (test_y[:100], pred_y)
+accuracy= accuracy_score (test_y, pred_y)
 print ('The accuracy of the classifier is:',accuracy)
-probability=svmModel.predict_proba(test_x[:100])
-decision_function_value=svmModel.decision_function(test_x[:100])
+probability=svmModel.predict_proba(test_x)
+decision_function_value=svmModel.decision_function(test_x)
 print ('Saving model to disk')
 obj.SavingSVMModel(svmModel)
 
 ####################Generating Adversarial Inputs#######################
 
-for i in range(0, len(test_y[:100])):
+for i in range(0, len(test_y)):
     pred=svmModel.predict([test_x[i]])
     if pred == test_y[i]:
         computedGradient=obj.GradientBasedMethod(test_x[i], test_y[i])
@@ -142,7 +142,7 @@ print ('Adversarial Images are saved on the path', pathadv)
   
     
 ########################################
-print('out of total',len(test_y[:500]), 'images the Gradient Based algorithm manage to convert only', len(adversarial_inputs),'images into adversarial images')
+print('out of total',len(test_y), 'images the Gradient Based algorithm manage to convert only', len(adversarial_inputs),'images into adversarial images')
 print('The adversarial inputs are cultivated')
 print ('Completed')
  
